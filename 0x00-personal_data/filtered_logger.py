@@ -11,9 +11,9 @@ from typing import List
 class RedactingFormatter(logging.Formatter):
     """Formatter that redacts sensitive information."""
 
-    REDACTION = "***"
+    RED = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+    SEP = ";"
 
     def __init__(self, fields: List[str]):
         super().__init__(self.FORMAT)
@@ -22,8 +22,8 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """Redacts sensitive data in log records."""
 
-        record.msg = filter_datum(self.fields, self.REDACTION,
-                                  record.getMessage(), self.SEPARATOR)
+        record.msg = filter_datum(self.fields, self.RED,
+                                  record.getMessage(), self.SEP)
         return super().format(record)
 
 
